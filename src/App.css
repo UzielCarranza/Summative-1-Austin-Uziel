@@ -1,26 +1,41 @@
-
+*{
+  outline: 2px solid blue;
+}
+.body-container{
+  width: 100%;
+  height: 100vh;
+}
 .container{
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-content: center;
   width: 90%;
+  height: auto;
   margin: 2em auto;
 }
 
 .product-wrapper{
+  display: flex;
+  flex-direction: column;
   padding: 3em;
-  width: 90%;
-  height: auto;
-  margin: 0 auto;
+  width: 70%;
+  height: 80%;
+  margin: 3em auto;
 }
 
 /*https://www.geeksforgeeks.org/how-to-create-a-responsive-scrollbox-in-css/*/
 .scroll {
   display: block;
-  border: 0px solid red;
   padding: 5px;
   margin-top: 5px;
   width: 100%;
-  height: 60vh;
+  height: 90%;
   overflow-y: scroll;
+}
+
+.product-img{
+  width: 20%;
+  height: 30%;
+  margin: 2em auto;
 }

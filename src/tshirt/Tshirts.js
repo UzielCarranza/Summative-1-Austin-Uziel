@@ -10,15 +10,21 @@ export const Tshirts = (data) => {
         }
     }, [data])
     return tShirtsData ? (
-        <div>
+        <div className="body-container">
             <div className="container scroll">
                 {tShirtsData.tshirts.map((item, i) => (
                     <div key={tShirtsData.tshirts[i].tshirtId} className="product-wrapper">
-                        <h1>Price: {tShirtsData.tshirts[i].price}</h1>
-                        <h1>Quantity: {tShirtsData.tshirts[i].quantity}</h1>
-                        <h1>Size: {tShirtsData.tshirts[i].size}</h1>
-                        <h1>Color: {tShirtsData.tshirts[i].color}</h1>
-                        <h1>Description: {tShirtsData.tshirts[i].description}</h1>
+                        <img
+                            className="product-img"
+                            src="//upload.wikimedia.org/wikipedia/commons/thumb/1/13/Replace_this_image_%28building%29.svg/100px-Replace_this_image_%28building%29.svg.png"
+                            alt="placeholder"/>
+                        <div className="product-properties">
+                            <h1>Price: {tShirtsData.tshirts[i].price}</h1>
+                            <h1>Quantity: {tShirtsData.tshirts[i].quantity}</h1>
+                            <h1>Size: {tShirtsData.tshirts[i].size}</h1>
+                            <h1>Color: {tShirtsData.tshirts[i].color}</h1>
+                            <h1>Description: {tShirtsData.tshirts[i].description}</h1>
+                        </div>
                     </div>
                 ))}
             </div>

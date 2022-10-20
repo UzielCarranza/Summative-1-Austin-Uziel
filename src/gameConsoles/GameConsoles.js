@@ -11,17 +11,22 @@ export const GameConsoles = (data) => {
     }, [data])
     console.log(consolesData)
     return consolesData ? (
-        <div>
-            <h1>Game Consoles</h1>
 
-            <div className="container">
+        <div className="body-container">
+            <div className="container scroll">
                 {consolesData.consoles.map((item, i) => (
                     <div key={consolesData.consoles[i].consoleId} className="product-wrapper">
-                        <h1>Price: {consolesData.consoles[i].price}</h1>
-                        <h1>Quantity: {consolesData.consoles[i].quantity}</h1>
-                        <h1>Size: {consolesData.consoles[i].size}</h1>
-                        <h1>Color: {consolesData.consoles[i].color}</h1>
-                        <h1>Description: {consolesData.consoles[i].description}</h1>
+                        <img
+                            className="product-img"
+                            src="//upload.wikimedia.org/wikipedia/commons/thumb/1/13/Replace_this_image_%28building%29.svg/100px-Replace_this_image_%28building%29.svg.png"
+                            alt="placeholder"/>
+                        <div className="product-properties">
+                            <h1>Price: {consolesData.consoles[i].price}</h1>
+                            <h1>Quantity: {consolesData.consoles[i].quantity}</h1>
+                            <h1>Size: {consolesData.consoles[i].size}</h1>
+                            <h1>Color: {consolesData.consoles[i].color}</h1>
+                            <h1>Description: {consolesData.consoles[i].description}</h1>
+                        </div>
                     </div>
                 ))}
             </div>
