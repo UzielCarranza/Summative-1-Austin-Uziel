@@ -1,14 +1,26 @@
-.App {
-  text-align: center;
-}
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.container{
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  width: 90%;
+  margin: 2em auto;
+}
+
+.product-wrapper{
+  padding: 3em;
+  width: 90%;
+  height: auto;
+  margin: 0 auto;
+}
+
+/*https://www.geeksforgeeks.org/how-to-create-a-responsive-scrollbox-in-css/*/
+.scroll {
+  display: block;
+  border: 0px solid red;
+  padding: 5px;
+  margin-top: 5px;
+  width: 100%;
+  height: 60vh;
+  overflow-y: scroll;
 }
