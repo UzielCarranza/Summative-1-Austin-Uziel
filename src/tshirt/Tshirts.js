@@ -1,18 +1,19 @@
 import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import Modal from "../utils/Modal";
+import ModalPostRequest from "../utils/ModalPostRequest";
 
 export const Tshirts = (data) => {
     const navigate = useNavigate()
     const [tShirtsData, setTShirtsData] = useState(null);
+
     useEffect(() => {
         if (data.tshirts !== null) {
             setTShirtsData(data);
         }
     }, [data])
-    const handleEditing = (e) => {
-        console.log(e.currentTarget.id)
-    }
+
+
     return tShirtsData ? (
         <div className="body-container">
             <div className="container scroll">
@@ -43,11 +44,11 @@ export const Tshirts = (data) => {
                         >
                         </Modal>
                     </div>
-
                 ))}
             </div>
 
             <div className="wrapper-buttons">
+                <ModalPostRequest showTShirtPostRequest={true}/>
                 <button
                     onClick={() => navigate("/games")}
 
