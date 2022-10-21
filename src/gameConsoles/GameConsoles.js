@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import Modal from "../utils/Modal";
 import ModalPostRequest from "../utils/ModalPostRequest";
 import axios from "axios";
+import {BsTrashFill} from "react-icons/bs";
 
 export const GameConsoles = (data) => {
     const navigate = useNavigate()
@@ -20,7 +21,7 @@ export const GameConsoles = (data) => {
     const search = () => {
         const response = axios.get(`http://localhost:8080/gameConsole/manufacturer/${searchByManufacturer}`)
             .then(response => {
-                if(response.data.length === 0){
+                if (response.data.length === 0) {
                     alert("No results found")
                 }
                 const searchByManufacturerResults = {consoles: response.data};
@@ -31,12 +32,22 @@ export const GameConsoles = (data) => {
         setConsolesData(consolesDataBackUp)
     }
 
+    const deleteById = (e) => {
+
+        axios.delete(`http://localhost:8080/gameConsole/${e.currentTarget.id}`).then(res => {
+                alert(res.status)
+                window.location.reload();
+            }
+        )
+    }
     return consolesData ? (
 
         <div className="body-container">
             <div className="container scroll">
                 {consolesData.consoles.map((item, i) => (
-                    <div key={consolesData.consoles[i].consoleId} className="product-wrapper">
+                    <div key={consolesData.consoles[i].consoleId + 10} className="product-wrapper">
+
+                        <BsTrashFill id={consolesData.consoles[i].consoleId} onClick={deleteById}/>
                         <img
                             className="product-img"
                             src="//upload.wikimedia.org/wikipedia/commons/thumb/1/13/Replace_this_image_%28building%29.svg/100px-Replace_this_image_%28building%29.svg.png"
