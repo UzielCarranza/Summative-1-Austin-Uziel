@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import Modal from "../utils/Modal";
 import ModalPostRequest from "../utils/ModalPostRequest";
 import axios from "axios";
+import {BsTrashFill} from "react-icons/bs";
 
 export const Tshirts = (data) => {
     const navigate = useNavigate()
@@ -10,14 +11,13 @@ export const Tshirts = (data) => {
     const [tShirtsDataBackUp, setTShirtsDataBackUp] = useState(null);
     const [searchBySize, setSearchBySize] = useState(null);
     const [searchByColor, setSearchByColor] = useState(null);
-    // const [deleteTShirt, setDeleteTShirt] = useState(null);
 
     useEffect(() => {
         if (data.tshirts !== null) {
             setTShirtsData(data);
             setTShirtsDataBackUp(data)
         }
-    }, [data])
+    }, [data, tShirtsData])
 
     const searchByCategory = () => {
         let url = `http://localhost:8080/tshirt/`
@@ -50,11 +50,14 @@ export const Tshirts = (data) => {
         setTShirtsData(tShirtsDataBackUp)
     }
 
-    // const deleteById = () => {
-    //
-    //     axios.delete(`http://localhost:8080/tshirt/${deleteTShirt}`).then(r => console.log(r))
-    //     setDeleteTShirt(null)
-    // }
+    const deleteById = (e) => {
+
+        axios.delete(`http://localhost:8080/tshirt/${e.currentTarget.id}`).then(res => {
+                alert(res.status)
+                window.location.reload();
+            }
+        )
+    }
 
     return tShirtsData ? (
         <div className="body-container">
@@ -67,7 +70,8 @@ export const Tshirts = (data) => {
                 <button onClick={searchByCategory}>search</button>
                 <button onClick={resetSearch}>reset</button>
                 {tShirtsData.tshirts.map((item, i) => (
-                    <div key={tShirtsData.tshirts[i].tshirtId} className="product-wrapper">
+                    <div key={tShirtsData.tshirts[i].tshirtId + 10} className="product-wrapper">
+                        <BsTrashFill id={tShirtsData.tshirts[i].tshirtId} onClick={deleteById}/>
                         <img
                             className="product-img"
                             src="//upload.wikimedia.org/wikipedia/commons/thumb/1/13/Replace_this_image_%28building%29.svg/100px-Replace_this_image_%28building%29.svg.png"
@@ -79,7 +83,6 @@ export const Tshirts = (data) => {
                             <h1>Color: {tShirtsData.tshirts[i].color}</h1>
                             <h1>Description: {tShirtsData.tshirts[i].description}</h1>
                         </div>
-                        {/*<button onClick={() => setDeleteTShirt(tShirtsData.tshirts[i].tshirtId)}>delete</button>*/}
                         <Modal obj={null} tShirt={{
                             id: tShirtsData.tshirts[i].tshirtId,
                             price: tShirtsData.tshirts[i].price,
