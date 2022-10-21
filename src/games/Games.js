@@ -47,7 +47,7 @@ export const Games = (data) => {
 
             <div className="wrapper-buttons">
 
-                <ModalPostRequest showTShirtPostRequestForm={false} showGamesPostRequestForm={true}/>
+                <ModalPostRequest showTShirtPostRequestForm={false} showGamesPostRequestForm={true} showGameConsolesPostRequestForm={false}/>
                 <button
                     onClick={() => navigate("/tshirts")}
                 >

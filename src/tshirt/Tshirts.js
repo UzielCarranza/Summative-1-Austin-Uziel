@@ -55,7 +55,7 @@ export const Tshirts = (data) => {
             </div>
 
             <div className="wrapper-buttons">
-                <ModalPostRequest showTShirtPostRequestForm={true} showGamesPostRequestForm={false}/>
+                <ModalPostRequest showTShirtPostRequestForm={true} showGamesPostRequestForm={false} showGameConsolesPostRequestForm={false}/>
                 <button
                     onClick={() => navigate("/games")}
 

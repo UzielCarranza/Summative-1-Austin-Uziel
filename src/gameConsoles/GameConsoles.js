@@ -1,6 +1,7 @@
 import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import Modal from "../utils/Modal";
+import ModalPostRequest from "../utils/ModalPostRequest";
 
 export const GameConsoles = (data) => {
     const navigate = useNavigate()
@@ -43,6 +44,8 @@ export const GameConsoles = (data) => {
             </div>
 
             <div className="wrapper-buttons">
+
+                <ModalPostRequest showTShirtPostRequestForm={false} showGamesPostRequestForm={false} showGameConsolesPostRequestForm={true} />
                 <button
                     onClick={() => navigate("/games")}
 
