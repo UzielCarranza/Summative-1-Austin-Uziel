@@ -26,11 +26,13 @@ justify-content: space-between;
 `;
 
 
-function Modal(obj, game) {
+function Modal(obj, game, tShirt) {
     console.log(obj)
     const [shouldShow, setShouldShow] = useState(false);
     const [consolesData, setconsolesData] = useState(null);
     const [gamesData, setGamesData] = useState(null);
+    const [tShirtData, setTshirtData] = useState(null);
+
 
     const [state, setState] = useState({
         price: null,
@@ -43,7 +45,9 @@ function Modal(obj, game) {
         esrbRating: null,
         title: null,
         studio: null,
-        description: null
+        description: null,
+        size: null,
+        color: null
 
     })
 
@@ -54,6 +58,9 @@ function Modal(obj, game) {
         }
         if (obj.game !== null) {
             setGamesData(obj)
+        }
+        if (obj.tShirt !== null) {
+            setTshirtData(obj)
         }
     }, [obj])
     const editingConsoleModal = () => {
@@ -102,7 +109,26 @@ function Modal(obj, game) {
                 <p>Title: {gamesData.game.title}</p>
                 <input name="title" type="text" id="title"
                        onChange={handleChanges}/>
+            </form>
+        )
+    }
 
+    const editingTShirtsModal = () => {
+        return (
+            <form className="product-properties">
+                <p>Price:{tShirtData.tShirt.price}</p>
+                <input name="price" inputMode="numeric" id="price" type="number" onChange={handleChanges}/>
+
+                <p>Size: {tShirtData.tShirt.size}</p>
+                <input name="size" type="number" id="size" onChange={handleChanges}/>
+
+                <p>Description: {tShirtData.tShirt.description}</p>
+                <input name="description" type="text" id="description"
+                       onChange={handleChanges}/>
+
+                <p>color: {tShirtData.tShirt.color}</p>
+                <input name="color" type="text" id="color"
+                       onChange={handleChanges}/>
             </form>
         )
     }
@@ -116,7 +142,7 @@ function Modal(obj, game) {
         });
     };
 
-    const makeConsolePutRequest = () => {
+    const makePutRequest = () => {
         if (consolesData !== null) {
             axios.put('http://localhost:8080/gameConsole', {
                 price: state.price !== null ? state.price : consolesData.obj.price,
@@ -126,11 +152,8 @@ function Modal(obj, game) {
                 processor: state.processor !== null ? state.processor : consolesData.obj.processor,
                 model: state.model !== null ? state.model : consolesData.obj.model,
                 manufacturer: state.manufacturer !== null ? state.manufacturer : consolesData.obj.manufacturer
-            }).then(res => {
-                window.location.reload()
             })
         }
-        console.log(gamesData.game.id)
         if (gamesData !== null) {
             axios.put('http://localhost:8080/game', {
                 price: state.price !== null ? state.price : gamesData.game.price,
@@ -140,10 +163,22 @@ function Modal(obj, game) {
                 title: state.title !== null ? state.title : gamesData.game.title,
                 studio: state.studio !== null ? state.studio : gamesData.game.studio,
                 description: state.description !== null ? state.description : gamesData.game.description
-            }).then(res => {
-                window.location.reload()
             })
         }
+        if (tShirtData !== null) {
+            axios.put('http://localhost:8080/tshirt', {
+                price: state.price !== null ? state.price : tShirtData.tShirt.price,
+                quantity: state.quantity !== null ? state.quantity : tShirtData.tShirt.quantity,
+                size: state.size !== null ? state.size : tShirtData.tShirt.size,
+                color: state.color !== null ? state.color : tShirtData.tShirt.color,
+                description: state.description !== null ? state.description : tShirtData.tShirt.description,
+                tshirtId: tShirtData.tShirt.id
+            })
+
+            window.location.reload();
+
+        }
+
     }
 
 
@@ -157,13 +192,14 @@ function Modal(obj, game) {
                     <ModalBody onClick={(e) => e.stopPropagation()}>
                         {consolesData && editingConsoleModal()}
                         {gamesData && editingGamesModal()}
+                        {tShirtData && editingTShirtsModal()}
                         <div>
                             <button className="close-modal-btn"
                                     onClick={() => setShouldShow(false)}>
                                 Close
                             </button>
                             <button className="close-modal-btn"
-                                    onClick={makeConsolePutRequest}>
+                                    onClick={makePutRequest}>
                                 Submit
                             </button>
                         </div>
