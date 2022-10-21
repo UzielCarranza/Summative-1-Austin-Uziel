@@ -20,8 +20,11 @@ export const GameConsoles = (data) => {
     const search = () => {
         const response = axios.get(`http://localhost:8080/gameConsole/manufacturer/${searchByManufacturer}`)
             .then(response => {
-                const objResults = {consoles: response.data};
-                setConsolesData(objResults)
+                if(response.data.length === 0){
+                    alert("No results found")
+                }
+                const searchByManufacturerResults = {consoles: response.data};
+                setConsolesData(searchByManufacturerResults)
             })
     }
     const resetSearch = () => {
