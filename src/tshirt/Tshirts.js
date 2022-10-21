@@ -9,6 +9,7 @@ export const Tshirts = (data) => {
     const [tShirtsData, setTShirtsData] = useState(null);
     const [tShirtsDataBackUp, setTShirtsDataBackUp] = useState(null);
     const [searchBySize, setSearchBySize] = useState(null);
+    const [searchByColor, setSearchByColor] = useState(null);
     // const [deleteTShirt, setDeleteTShirt] = useState(null);
 
     useEffect(() => {
@@ -19,18 +20,33 @@ export const Tshirts = (data) => {
     }, [data])
 
     const searchByCategory = () => {
-        const response = axios.get(`http://localhost:8080/tshirt/size/${searchBySize}`)
-            .then(response => {
-                if (response.data.length === 0) {
-                    alert("No results found")
-                }
-                const searchByTShirtSizeResults = {tshirts: response.data};
-                setTShirtsData(searchByTShirtSizeResults)
-            })
+        let url = `http://localhost:8080/tshirt/`
+        if (searchBySize !== null && searchByColor === null) {
+            const response = axios.get(`${url}/size/${searchBySize}`)
+                .then(response => {
+                    if (response.data.length === 0) {
+                        alert("No results found")
+                    }
+                    const searchByTShirtSizeResults = {tshirts: response.data};
+                    setTShirtsData(searchByTShirtSizeResults)
+                })
+        }
+        if (searchBySize === null && searchByColor !== null) {
+            const response = axios.get(`${url}/color/${searchByColor}`)
+                .then(response => {
+                    if (response.data.length === 0) {
+                        alert("No results found")
+                    }
+                    const searchByTShirtSizeResults = {tshirts: response.data};
+                    setTShirtsData(searchByTShirtSizeResults)
+                })
+        }
     }
     const resetSearch = () => {
         document.getElementById("search-by-size").value = null;
         setSearchBySize(null)
+        document.getElementById("search-by-color").value = null;
+        setSearchByColor(null)
         setTShirtsData(tShirtsDataBackUp)
     }
 
@@ -45,6 +61,9 @@ export const Tshirts = (data) => {
             <div className="container scroll">
                 <input id="search-by-size" type="text" onChange={(e) => setSearchBySize(e.target.value)}
                        placeholder="search by size"/>
+
+                <input id="search-by-color" type="text" onChange={(e) => setSearchByColor(e.target.value)}
+                       placeholder="search by color"/>
                 <button onClick={searchByCategory}>search</button>
                 <button onClick={resetSearch}>reset</button>
                 {tShirtsData.tshirts.map((item, i) => (
