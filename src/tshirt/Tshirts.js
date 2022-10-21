@@ -1,5 +1,6 @@
 import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
+import Modal from "../utils/Modal";
 
 export const Tshirts = (data) => {
     const navigate = useNavigate()
@@ -9,11 +10,15 @@ export const Tshirts = (data) => {
             setTShirtsData(data);
         }
     }, [data])
+    const handleEditing = (e) => {
+        console.log(e.currentTarget.id)
+    }
     return tShirtsData ? (
         <div className="body-container">
             <div className="container scroll">
                 {tShirtsData.tshirts.map((item, i) => (
                     <div key={tShirtsData.tshirts[i].tshirtId} className="product-wrapper">
+
                         <img
                             className="product-img"
                             src="//upload.wikimedia.org/wikipedia/commons/thumb/1/13/Replace_this_image_%28building%29.svg/100px-Replace_this_image_%28building%29.svg.png"
@@ -25,7 +30,20 @@ export const Tshirts = (data) => {
                             <h1>Color: {tShirtsData.tshirts[i].color}</h1>
                             <h1>Description: {tShirtsData.tshirts[i].description}</h1>
                         </div>
+                        <Modal obj={null} tShirt={{
+                            id: tShirtsData.tshirts[i].tshirtId,
+                            price: tShirtsData.tshirts[i].price,
+                            size: tShirtsData.tshirts[i].size,
+                            description: tShirtsData.tshirts[i].description,
+                            color: tShirtsData.tshirts[i].color,
+                            quantity: tShirtsData.tshirts[i].quantity
+                        }}
+
+                               game={null}
+                        >
+                        </Modal>
                     </div>
+
                 ))}
             </div>
 
