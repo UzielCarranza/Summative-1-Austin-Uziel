@@ -11,6 +11,7 @@ export const Tshirts = (data) => {
     const [tShirtsDataBackUp, setTShirtsDataBackUp] = useState(null);
     const [searchBySize, setSearchBySize] = useState(null);
     const [searchByColor, setSearchByColor] = useState(null);
+    const [searchById, setSearchById] = useState(null);
 
     useEffect(() => {
         if (data.tshirts !== null) {
@@ -59,6 +60,16 @@ export const Tshirts = (data) => {
         )
     }
 
+    const searchByTShirtId = (e) => {
+        axios.get(`http://localhost:8080/tshirt/${searchById}`).then(res => {
+                alert(res.status)
+                const getByIdResult = {tshirts: [res.data]};
+            console.log(getByIdResult)
+                setTShirtsData(getByIdResult)
+            }
+        )
+    }
+
     return tShirtsData ? (
         <div className="body-container">
             <div className="container scroll">
@@ -69,6 +80,13 @@ export const Tshirts = (data) => {
                        placeholder="search by color"/>
                 <button onClick={searchByCategory}>search</button>
                 <button onClick={resetSearch}>reset</button>
+
+
+                <input id="search-by-id" type="text" onChange={(e) => setSearchById(e.target.value)}
+                       placeholder="search by Id"/>
+                <button onClick={searchByTShirtId}>search by Id</button>
+
+
                 {tShirtsData.tshirts.map((item, i) => (
                     <div key={tShirtsData.tshirts[i].tshirtId + 20} className="product-wrapper">
                         <BsTrashFill id={tShirtsData.tshirts[i].tshirtId} onClick={deleteById}/>
