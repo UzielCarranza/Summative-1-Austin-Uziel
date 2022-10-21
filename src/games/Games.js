@@ -2,20 +2,47 @@ import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import Modal from "../utils/Modal";
 import ModalPostRequest from "../utils/ModalPostRequest";
+import axios from "axios";
 
 export const Games = (data) => {
     console.log(data)
     const navigate = useNavigate()
     const [gamesData, setGamesData] = useState(null);
+    const [gamesDataBackUp, setGamesDataBackUp] = useState(null)
+    const [searchByTitle, setSearchByTitle] = useState(null);
+
     useEffect(() => {
         if (data.games !== null) {
             setGamesData(data);
+            setGamesDataBackUp(data)
         }
     }, [data])
+
+    const search = () => {
+        const response = axios.get(`http://localhost:8080/game/title/${searchByTitle}`)
+            .then(response => {
+                console.log(response)
+                if(response.status === 200 && response.data){
+                    const searchByTitleResults = {games: [response.data]};
+                    setGamesData(searchByTitleResults)
+                    console.log(searchByTitleResults)
+                } else {
+                    alert("No results found")
+                }
+            })
+    }
+    const resetSearch = () => {
+        setGamesData(gamesDataBackUp)
+    }
+
     return gamesData ? (
 
         <div className="body-container">
             <div className="container scroll">
+                <input id="search-by-title" type="text" onChange={(e) => setSearchByTitle(e.target.value)}
+                       placeholder="search by title"/>
+                <button onClick={search}>search</button>
+                <button onClick={resetSearch}>reset</button>
                 {gamesData.games.map((item, i) => (
                     <div key={gamesData.games[i].gameId} className="product-wrapper">
                         <img
