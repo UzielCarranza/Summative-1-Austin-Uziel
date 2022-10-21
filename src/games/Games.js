@@ -5,11 +5,11 @@ import ModalPostRequest from "../utils/ModalPostRequest";
 import axios from "axios";
 
 export const Games = (data) => {
-    console.log(data)
     const navigate = useNavigate()
     const [gamesData, setGamesData] = useState(null);
     const [gamesDataBackUp, setGamesDataBackUp] = useState(null)
     const [searchByTitle, setSearchByTitle] = useState(null);
+    const [searchByStudio, setSearchByStudio] = useState(null);
 
     useEffect(() => {
         if (data.games !== null) {
@@ -19,19 +19,41 @@ export const Games = (data) => {
     }, [data])
 
     const search = () => {
-        const response = axios.get(`http://localhost:8080/game/title/${searchByTitle}`)
-            .then(response => {
-                console.log(response)
-                if(response.status === 200 && response.data){
-                    const searchByTitleResults = {games: [response.data]};
-                    setGamesData(searchByTitleResults)
-                    console.log(searchByTitleResults)
-                } else {
-                    alert("No results found")
-                }
-            })
+        let url = 'http://localhost:8080/game/';
+        if (searchByTitle !== null && searchByStudio === null) {
+            url = `${url}/title/${searchByTitle}`
+            const response = axios.get(url)
+                .then(response => {
+                    if (response.status === 200 && response.data) {
+                        const searchByTitleResults = {games: [response.data]};
+                        setGamesData(searchByTitleResults)
+                        console.log(searchByTitleResults)
+                    } else {
+                        alert("No results found")
+                    }
+                })
+        }
+        if (searchByTitle === null && searchByStudio !== null) {
+            url = `${url}/studio/${searchByStudio}`
+            const response = axios.get(url)
+                .then(response => {
+                    if (response.status === 200 && response.data) {
+                        const searchByTitleResults = {games: response.data};
+                        setGamesData(searchByTitleResults)
+                        console.log(searchByTitleResults)
+                    } else {
+                        alert("No results found")
+                    }
+                })
+        }
+
     }
     const resetSearch = () => {
+
+        document.getElementById("search-by-studio").value = null;
+        document.getElementById("search-by-title").value = null;
+        setSearchByTitle(null)
+        setSearchByStudio(null)
         setGamesData(gamesDataBackUp)
     }
 
@@ -41,6 +63,9 @@ export const Games = (data) => {
             <div className="container scroll">
                 <input id="search-by-title" type="text" onChange={(e) => setSearchByTitle(e.target.value)}
                        placeholder="search by title"/>
+
+                <input id="search-by-studio" type="text" onChange={(e) => setSearchByStudio(e.target.value)}
+                       placeholder="search by studio"/>
                 <button onClick={search}>search</button>
                 <button onClick={resetSearch}>reset</button>
                 {gamesData.games.map((item, i) => (
@@ -74,7 +99,8 @@ export const Games = (data) => {
 
             <div className="wrapper-buttons">
 
-                <ModalPostRequest showTShirtPostRequestForm={false} showGamesPostRequestForm={true} showGameConsolesPostRequestForm={false}/>
+                <ModalPostRequest showTShirtPostRequestForm={false} showGamesPostRequestForm={true}
+                                  showGameConsolesPostRequestForm={false}/>
                 <button
                     onClick={() => navigate("/tshirts")}
                 >
