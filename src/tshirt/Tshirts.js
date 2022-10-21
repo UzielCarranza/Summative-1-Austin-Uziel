@@ -6,6 +6,8 @@ import axios from "axios";
 import {BsTrashFill} from "react-icons/bs";
 
 export const Tshirts = (data) => {
+
+    console.log(window.location.href)
     const navigate = useNavigate()
     const [tShirtsData, setTShirtsData] = useState(null);
     const [tShirtsDataBackUp, setTShirtsDataBackUp] = useState(null);
@@ -122,18 +124,21 @@ export const Tshirts = (data) => {
                 <ModalPostRequest showTShirtPostRequestForm={true} showGamesPostRequestForm={false}
                                   showGameConsolesPostRequestForm={false}/>
                 <button
-                    onClick={() => navigate("/games")}
+                    onClick={() =>
+                        console.log(window.location.assign('http://localhost:3000/games'))}
 
                 >
                     Games
                 </button>
                 <button
-                    onClick={() => navigate("/")}
+                    onClick={() =>
+                        console.log(window.location.assign('http://localhost:3000/'))}
                 >
                     Home
                 </button>
                 <button
-                    onClick={() => navigate("/consoles")}
+                    onClick={() =>
+                        console.log(window.location.assign('http://localhost:3000/consoles'))}
                 >
                     Game Consoles
                 </button>

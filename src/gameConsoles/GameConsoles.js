@@ -99,19 +99,21 @@ export const GameConsoles = (data) => {
                 <ModalPostRequest showTShirtPostRequestForm={false} showGamesPostRequestForm={false}
                                   showGameConsolesPostRequestForm={true}/>
                 <button
-                    onClick={() => navigate("/games")}
+                    onClick={() =>
+                        console.log(window.location.assign('http://localhost:3000/games'))}
 
                 >
                     Games
                 </button>
                 <button
-                    onClick={() => navigate("/")}
+                    onClick={() =>
+                        console.log(window.location.assign('http://localhost:3000/'))}
                 >
                     Home
                 </button>
                 <button
-                    onClick={() => navigate("/tshirts")}
-                >
+                    onClick={() =>
+                        console.log(window.location.assign('http://localhost:3000/tshirts'))}>
                     T-Shirts
                 </button>
             </div>
