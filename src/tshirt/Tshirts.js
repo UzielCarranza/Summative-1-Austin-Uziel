@@ -24,7 +24,7 @@ export const Tshirts = (data) => {
                             src="//upload.wikimedia.org/wikipedia/commons/thumb/1/13/Replace_this_image_%28building%29.svg/100px-Replace_this_image_%28building%29.svg.png"
                             alt="placeholder"/>
                         <div className="product-properties">
-                            <h1>Price: {tShirtsData.tshirts[i].price}</h1>
+                            <h1>Price: ${tShirtsData.tshirts[i].price}</h1>
                             <h1>Quantity: {tShirtsData.tshirts[i].quantity}</h1>
                             <h1>Size: {tShirtsData.tshirts[i].size}</h1>
                             <h1>Color: {tShirtsData.tshirts[i].color}</h1>

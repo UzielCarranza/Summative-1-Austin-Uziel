@@ -21,14 +21,14 @@ export const GameConsoles = (data) => {
                             src="//upload.wikimedia.org/wikipedia/commons/thumb/1/13/Replace_this_image_%28building%29.svg/100px-Replace_this_image_%28building%29.svg.png"
                             alt="placeholder"/>
                         <div className="product-properties">
-                            <h1>Price: {consolesData.consoles[i].price}</h1>
+                            <h1>Price: ${consolesData.consoles[i].price}</h1>
                             <h1>Quantity: {consolesData.consoles[i].quantity}</h1>
                             <h1>manufacturer: {consolesData.consoles[i].manufacturer}</h1>
                             <h1>memoryAmount: {consolesData.consoles[i].memoryAmount}</h1>
                             <h1>model: {consolesData.consoles[i].model}</h1>
                             <h1>processor: {consolesData.consoles[i].processor}</h1>
                         </div>
-                        <Modal obj={{
+                        <Modal  obj={{
                             id: consolesData.consoles[i].consoleId,
                             price: consolesData.consoles[i].price,
                             quantity: consolesData.consoles[i].quantity,
@@ -36,7 +36,7 @@ export const GameConsoles = (data) => {
                             memoryAmount: consolesData.consoles[i].memoryAmount,
                             model: consolesData.consoles[i].model,
                             processor: consolesData.consoles[i].processor
-                        }}>
+                        }} game={null} tShirt={null}>
                         </Modal>
                     </div>
                 ))}

@@ -27,7 +27,6 @@ justify-content: space-between;
 
 
 function Modal(obj, game, tShirt) {
-    console.log(obj)
     const [shouldShow, setShouldShow] = useState(false);
     const [consolesData, setconsolesData] = useState(null);
     const [gamesData, setGamesData] = useState(null);
@@ -63,10 +62,10 @@ function Modal(obj, game, tShirt) {
             setTshirtData(obj)
         }
     }, [obj])
-    const editingConsoleModal = () => {
+    const editingGameConsolesModal = () => {
         return (
             <form className="product-properties">
-                <p>Price: {consolesData.obj.price}</p>
+                <p>Price: ${consolesData.obj.price}</p>
                 <input name="price" inputMode="numeric" id="price" type="number" onChange={handleChanges}/>
 
                 <p>Quantity: {consolesData.obj.quantity}</p>
@@ -89,7 +88,7 @@ function Modal(obj, game, tShirt) {
     const editingGamesModal = () => {
         return (
             <form className="product-properties">
-                <p>Price:{gamesData.game.price}</p>
+                <p>Price: ${gamesData.game.price}</p>
                 <input name="price" inputMode="numeric" id="price" type="number" onChange={handleChanges}/>
 
                 <p>Quantity: {gamesData.game.quantity}</p>
@@ -116,11 +115,11 @@ function Modal(obj, game, tShirt) {
     const editingTShirtsModal = () => {
         return (
             <form className="product-properties">
-                <p>Price:{tShirtData.tShirt.price}</p>
+                <p>Price: ${tShirtData.tShirt.price}</p>
                 <input name="price" inputMode="numeric" id="price" type="number" onChange={handleChanges}/>
 
                 <p>Size: {tShirtData.tShirt.size}</p>
-                <input name="size" type="number" id="size" onChange={handleChanges}/>
+                <input name="size" type="text" id="size" onChange={handleChanges}/>
 
                 <p>Description: {tShirtData.tShirt.description}</p>
                 <input name="description" type="text" id="description"
@@ -129,6 +128,10 @@ function Modal(obj, game, tShirt) {
                 <p>color: {tShirtData.tShirt.color}</p>
                 <input name="color" type="text" id="color"
                        onChange={handleChanges}/>
+                <p>Quantity: {tShirtData.tShirt.quantity}</p>
+                <input name="quantity" type="text" id="quantity"
+                       onChange={handleChanges}/>
+
             </form>
         )
     }
@@ -190,7 +193,7 @@ function Modal(obj, game, tShirt) {
             {shouldShow && (
                 <ModalBackground>
                     <ModalBody onClick={(e) => e.stopPropagation()}>
-                        {consolesData && editingConsoleModal()}
+                        {consolesData && editingGameConsolesModal()}
                         {gamesData && editingGamesModal()}
                         {tShirtData && editingTShirtsModal()}
                         <div>

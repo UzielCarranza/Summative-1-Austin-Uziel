@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import Modal from "../utils/Modal";
 
 export const Games = (data) => {
+    console.log(data)
     const navigate = useNavigate()
     const [gamesData, setGamesData] = useState(null);
     useEffect(() => {
@@ -21,12 +22,13 @@ export const Games = (data) => {
                             src="//upload.wikimedia.org/wikipedia/commons/thumb/1/13/Replace_this_image_%28building%29.svg/100px-Replace_this_image_%28building%29.svg.png"
                             alt="placeholder"/>
                         <div className="product-properties">
+
+                            <h1> Title: ${gamesData.games[i].title}</h1>
                             <h1>Price: {gamesData.games[i].price}</h1>
-                            <h1>Quantity: {gamesData.games[i].quantity}</h1>
                             <h1>Esrb Rating: {gamesData.games[i].esrbRating}</h1>
                             <h1>Description: {gamesData.games[i].description}</h1>
                             <h1> Studio: {gamesData.games[i].studio}</h1>
-                            <h1> Title: {gamesData.games[i].title}</h1>
+                            <h1>Quantity: {gamesData.games[i].quantity}</h1>
                         </div>
                         <Modal obj={null} game={{
                             id: gamesData.games[i].gameId,
@@ -35,8 +37,8 @@ export const Games = (data) => {
                             esrbRating: gamesData.games[i].esrbRating,
                             description: gamesData.games[i].description,
                             studio: gamesData.games[i].studio,
-                            title: gamesData.games[i].title
-                        }}>
+                            title: gamesData.games[i].title,
+                        }} tShirt={null}>
                         </Modal>
                     </div>
                 ))}
