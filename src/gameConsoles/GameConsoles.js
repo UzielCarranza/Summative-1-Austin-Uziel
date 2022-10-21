@@ -2,15 +2,32 @@ import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import Modal from "../utils/Modal";
 import ModalPostRequest from "../utils/ModalPostRequest";
+import axios from "axios";
 
 export const GameConsoles = (data) => {
     const navigate = useNavigate()
     const [consolesData, setConsolesData] = useState(null);
+    const [consolesDataBackUp, setConsolesDataBackUp] = useState(null)
+    const [searchByManufacturer, setSearchByManufacturer] = useState(null);
+
     useEffect(() => {
         if (data.consoles !== null) {
             setConsolesData(data);
+            setConsolesDataBackUp(data)
         }
     }, [data])
+
+    const search = () => {
+        const response = axios.get(`http://localhost:8080/gameConsole/manufacturer/${searchByManufacturer}`)
+            .then(response => {
+                const objResults = {consoles: response.data};
+                setConsolesData(objResults)
+            })
+    }
+    const resetSearch = () => {
+        setConsolesData(consolesDataBackUp)
+    }
+
     return consolesData ? (
 
         <div className="body-container">
@@ -29,7 +46,7 @@ export const GameConsoles = (data) => {
                             <h1>model: {consolesData.consoles[i].model}</h1>
                             <h1>processor: {consolesData.consoles[i].processor}</h1>
                         </div>
-                        <Modal  obj={{
+                        <Modal obj={{
                             id: consolesData.consoles[i].consoleId,
                             price: consolesData.consoles[i].price,
                             quantity: consolesData.consoles[i].quantity,
@@ -44,8 +61,13 @@ export const GameConsoles = (data) => {
             </div>
 
             <div className="wrapper-buttons">
+                <input id="search-by-manufacturer" type="text" onChange={(e) => setSearchByManufacturer(e.target.value)}
+                       placeholder="search by manufacturer"/>
+                <button onClick={search}>search</button>
+                <button onClick={resetSearch}>reset</button>
 
-                <ModalPostRequest showTShirtPostRequestForm={false} showGamesPostRequestForm={false} showGameConsolesPostRequestForm={true} />
+                <ModalPostRequest showTShirtPostRequestForm={false} showGamesPostRequestForm={false}
+                                  showGameConsolesPostRequestForm={true}/>
                 <button
                     onClick={() => navigate("/games")}
 
