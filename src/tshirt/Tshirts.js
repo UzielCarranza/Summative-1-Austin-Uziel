@@ -60,7 +60,7 @@ export const Tshirts = (data) => {
         )
     }
 
-    const searchByTShirtId = (e) => {
+    const searchTShirtById = (e) => {
         axios.get(`http://localhost:8080/tshirt/${searchById}`).then(res => {
                 alert(res.status)
                 const getByIdResult = {tshirts: [res.data]};
@@ -84,7 +84,7 @@ export const Tshirts = (data) => {
 
                 <input id="search-by-id" type="text" onChange={(e) => setSearchById(e.target.value)}
                        placeholder="search by Id"/>
-                <button onClick={searchByTShirtId}>search by Id</button>
+                <button onClick={searchTShirtById}>search by Id</button>
 
 
                 {tShirtsData.tshirts.map((item, i) => (
@@ -100,6 +100,7 @@ export const Tshirts = (data) => {
                             <h1>Size: {tShirtsData.tshirts[i].size}</h1>
                             <h1>Color: {tShirtsData.tshirts[i].color}</h1>
                             <h1>Description: {tShirtsData.tshirts[i].description}</h1>
+                            <h1>Id: {tShirtsData.tshirts[i].tshirtId}</h1>
                         </div>
                         <Modal obj={null} tShirt={{
                             id: tShirtsData.tshirts[i].tshirtId,

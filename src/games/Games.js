@@ -13,6 +13,7 @@ export const Games = (data) => {
     const [searchByTitle, setSearchByTitle] = useState(null);
     const [searchByStudio, setSearchByStudio] = useState(null);
     const [searchByEsrb, setSearchByEsrb] = useState(null);
+    const [searchById, setSearchById] = useState(null);
 
     useEffect(() => {
         if (data.games !== null) {
@@ -82,6 +83,16 @@ export const Games = (data) => {
         )
     }
 
+    const searchGameId = (e) => {
+        axios.get(`http://localhost:8080/game/${searchById}`).then(res => {
+                alert(res.status)
+                const getByIdResult = {games: [res.data]};
+                console.log(getByIdResult)
+                setGamesData(getByIdResult)
+            }
+        )
+    }
+
     return gamesData ? (
 
         <div className="body-container">
@@ -98,6 +109,11 @@ export const Games = (data) => {
                 <button onClick={searchBySpecificCategory}>search</button>
                 <button onClick={resetSearch}>reset</button>
 
+
+                <input id="search-by-id" type="text" onChange={(e) => setSearchById(e.target.value)}
+                       placeholder="search by Id"/>
+                <button onClick={searchGameId}>search by Id</button>
+
                 {gamesData.games.map((item, i) => (
                     <div key={gamesData.games[i].gameId + 30} className="product-wrapper">
                         <BsTrashFill id={gamesData.games[i].gameId} onClick={deleteById}/>
@@ -113,6 +129,7 @@ export const Games = (data) => {
                             <h1>Description: {gamesData.games[i].description}</h1>
                             <h1> Studio: {gamesData.games[i].studio}</h1>
                             <h1>Quantity: {gamesData.games[i].quantity}</h1>
+                            <h1>Id: {gamesData.games[i].gameId} </h1>
                         </div>
                         <Modal obj={null} game={{
                             id: gamesData.games[i].gameId,

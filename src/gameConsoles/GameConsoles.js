@@ -10,6 +10,7 @@ export const GameConsoles = (data) => {
     const [consolesData, setConsolesData] = useState(null);
     const [consolesDataBackUp, setConsolesDataBackUp] = useState(null)
     const [searchByManufacturer, setSearchByManufacturer] = useState(null);
+    const [searchById, setSearchById] = useState(null);
 
     useEffect(() => {
         if (data.consoles !== null) {
@@ -40,6 +41,16 @@ export const GameConsoles = (data) => {
             }
         )
     }
+
+    const searchGameByConsoleId = (e) => {
+        axios.get(`http://localhost:8080/gameConsole/${searchById}`).then(res => {
+                alert(res.status)
+                const getByIdResult = {consoles: [res.data]};
+                console.log(getByIdResult)
+                setConsolesData(getByIdResult)
+            }
+        )
+    }
     return consolesData ? (
 
         <div className="body-container">
@@ -59,6 +70,7 @@ export const GameConsoles = (data) => {
                             <h1>memoryAmount: {consolesData.consoles[i].memoryAmount}</h1>
                             <h1>model: {consolesData.consoles[i].model}</h1>
                             <h1>processor: {consolesData.consoles[i].processor}</h1>
+                            <h1>Id: {consolesData.consoles[i].consoleId}</h1>
                         </div>
                         <Modal obj={{
                             id: consolesData.consoles[i].consoleId,
@@ -79,6 +91,10 @@ export const GameConsoles = (data) => {
                        placeholder="search by manufacturer"/>
                 <button onClick={search}>search</button>
                 <button onClick={resetSearch}>reset</button>
+
+                <input id="search-by-id" type="text" onChange={(e) => setSearchById(e.target.value)}
+                       placeholder="search by Id"/>
+                <button onClick={searchGameByConsoleId}>search by Id</button>
 
                 <ModalPostRequest showTShirtPostRequestForm={false} showGamesPostRequestForm={false}
                                   showGameConsolesPostRequestForm={true}/>
