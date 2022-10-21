@@ -10,6 +10,7 @@ export const Games = (data) => {
     const [gamesDataBackUp, setGamesDataBackUp] = useState(null)
     const [searchByTitle, setSearchByTitle] = useState(null);
     const [searchByStudio, setSearchByStudio] = useState(null);
+    const [searchByEsrb, setSearchByEsrb] = useState(null);
 
     useEffect(() => {
         if (data.games !== null) {
@@ -18,7 +19,7 @@ export const Games = (data) => {
         }
     }, [data])
 
-    const search = () => {
+    const searchBySpecificCategory = () => {
         let url = 'http://localhost:8080/game/';
         if (searchByTitle !== null && searchByStudio === null) {
             url = `${url}/title/${searchByTitle}`
@@ -27,7 +28,6 @@ export const Games = (data) => {
                     if (response.status === 200 && response.data) {
                         const searchByTitleResults = {games: [response.data]};
                         setGamesData(searchByTitleResults)
-                        console.log(searchByTitleResults)
                     } else {
                         alert("No results found")
                     }
@@ -38,9 +38,21 @@ export const Games = (data) => {
             const response = axios.get(url)
                 .then(response => {
                     if (response.status === 200 && response.data) {
-                        const searchByTitleResults = {games: response.data};
-                        setGamesData(searchByTitleResults)
-                        console.log(searchByTitleResults)
+                        const searchByStudioResults = {games: response.data};
+                        setGamesData(searchByStudioResults)
+                    } else {
+                        alert("No results found")
+                    }
+                })
+        }
+
+        if (searchByTitle === null && searchByStudio === null && searchByEsrb !== null) {
+            url = `${url}/esrb/${searchByEsrb}`
+            const response = axios.get(url)
+                .then(response => {
+                    if (response.status === 200 && response.data.length > 0) {
+                        const searchByEsrbResults = {games: response.data};
+                        setGamesData(searchByEsrbResults)
                     } else {
                         alert("No results found")
                     }
@@ -52,6 +64,8 @@ export const Games = (data) => {
 
         document.getElementById("search-by-studio").value = null;
         document.getElementById("search-by-title").value = null;
+        document.getElementById("search-by-esrb").value = null;
+        setSearchByEsrb(null)
         setSearchByTitle(null)
         setSearchByStudio(null)
         setGamesData(gamesDataBackUp)
@@ -66,8 +80,13 @@ export const Games = (data) => {
 
                 <input id="search-by-studio" type="text" onChange={(e) => setSearchByStudio(e.target.value)}
                        placeholder="search by studio"/>
-                <button onClick={search}>search</button>
+
+                <input id="search-by-esrb" type="text" onChange={(e) => setSearchByEsrb(e.target.value)}
+                       placeholder="search by esrb Rating"/>
+
+                <button onClick={searchBySpecificCategory}>search</button>
                 <button onClick={resetSearch}>reset</button>
+
                 {gamesData.games.map((item, i) => (
                     <div key={gamesData.games[i].gameId} className="product-wrapper">
                         <img
