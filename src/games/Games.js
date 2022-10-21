@@ -6,6 +6,7 @@ import axios from "axios";
 import {BsTrashFill} from "react-icons/bs";
 
 export const Games = (data) => {
+
     const navigate = useNavigate()
     const [gamesData, setGamesData] = useState(null);
     const [gamesDataBackUp, setGamesDataBackUp] = useState(null)
@@ -98,7 +99,7 @@ export const Games = (data) => {
                 <button onClick={resetSearch}>reset</button>
 
                 {gamesData.games.map((item, i) => (
-                    <div key={gamesData.games[i].gameId + 10} className="product-wrapper">
+                    <div key={gamesData.games[i].gameId + 30} className="product-wrapper">
                         <BsTrashFill id={gamesData.games[i].gameId} onClick={deleteById}/>
                         <img
                             className="product-img"
@@ -106,8 +107,8 @@ export const Games = (data) => {
                             alt="placeholder"/>
                         <div className="product-properties">
 
-                            <h1> Title: ${gamesData.games[i].title}</h1>
-                            <h1>Price: {gamesData.games[i].price}</h1>
+                            <h1> Title: {gamesData.games[i].title}</h1>
+                            <h1>Price: ${gamesData.games[i].price}</h1>
                             <h1>Esrb Rating: {gamesData.games[i].esrbRating}</h1>
                             <h1>Description: {gamesData.games[i].description}</h1>
                             <h1> Studio: {gamesData.games[i].studio}</h1>

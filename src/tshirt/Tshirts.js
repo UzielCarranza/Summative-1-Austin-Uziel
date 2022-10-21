@@ -17,7 +17,7 @@ export const Tshirts = (data) => {
             setTShirtsData(data);
             setTShirtsDataBackUp(data)
         }
-    }, [data, tShirtsData])
+    }, [data])
 
     const searchByCategory = () => {
         let url = `http://localhost:8080/tshirt/`
@@ -70,7 +70,7 @@ export const Tshirts = (data) => {
                 <button onClick={searchByCategory}>search</button>
                 <button onClick={resetSearch}>reset</button>
                 {tShirtsData.tshirts.map((item, i) => (
-                    <div key={tShirtsData.tshirts[i].tshirtId + 10} className="product-wrapper">
+                    <div key={tShirtsData.tshirts[i].tshirtId + 20} className="product-wrapper">
                         <BsTrashFill id={tShirtsData.tshirts[i].tshirtId} onClick={deleteById}/>
                         <img
                             className="product-img"
