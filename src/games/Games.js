@@ -1,6 +1,5 @@
 import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {AiFillEdit} from "react-icons/ai";
 import Modal from "../utils/Modal";
 
 export const Games = (data) => {
@@ -11,7 +10,6 @@ export const Games = (data) => {
             setGamesData(data);
         }
     }, [data])
-    console.log(data)
     return gamesData ? (
 
         <div className="body-container">
