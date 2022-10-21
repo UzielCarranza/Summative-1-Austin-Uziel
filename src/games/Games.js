@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import Modal from "../utils/Modal";
 import ModalPostRequest from "../utils/ModalPostRequest";
 import axios from "axios";
+import {BsTrashFill} from "react-icons/bs";
 
 export const Games = (data) => {
     const navigate = useNavigate()
@@ -71,6 +72,15 @@ export const Games = (data) => {
         setGamesData(gamesDataBackUp)
     }
 
+    const deleteById = (e) => {
+
+        axios.delete(`http://localhost:8080/game/${e.currentTarget.id}`).then(res => {
+                alert(res.status)
+                window.location.reload();
+            }
+        )
+    }
+
     return gamesData ? (
 
         <div className="body-container">
@@ -88,7 +98,8 @@ export const Games = (data) => {
                 <button onClick={resetSearch}>reset</button>
 
                 {gamesData.games.map((item, i) => (
-                    <div key={gamesData.games[i].gameId} className="product-wrapper">
+                    <div key={gamesData.games[i].gameId + 10} className="product-wrapper">
+                        <BsTrashFill id={gamesData.games[i].gameId} onClick={deleteById}/>
                         <img
                             className="product-img"
                             src="//upload.wikimedia.org/wikipedia/commons/thumb/1/13/Replace_this_image_%28building%29.svg/100px-Replace_this_image_%28building%29.svg.png"
