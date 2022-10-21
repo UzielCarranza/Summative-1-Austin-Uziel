@@ -6,6 +6,7 @@ import ModalPostRequest from "../utils/ModalPostRequest";
 export const Tshirts = (data) => {
     const navigate = useNavigate()
     const [tShirtsData, setTShirtsData] = useState(null);
+    // const [deleteTShirt, setDeleteTShirt] = useState(null);
 
     useEffect(() => {
         if (data.tshirts !== null) {
@@ -13,6 +14,11 @@ export const Tshirts = (data) => {
         }
     }, [data])
 
+    // const deleteById = () => {
+    //
+    //     axios.delete(`http://localhost:8080/tshirt/${deleteTShirt}`).then(r => console.log(r))
+    //     setDeleteTShirt(null)
+    // }
 
     return tShirtsData ? (
         <div className="body-container">
@@ -31,6 +37,7 @@ export const Tshirts = (data) => {
                             <h1>Color: {tShirtsData.tshirts[i].color}</h1>
                             <h1>Description: {tShirtsData.tshirts[i].description}</h1>
                         </div>
+                        {/*<button onClick={() => setDeleteTShirt(tShirtsData.tshirts[i].tshirtId)}>delete</button>*/}
                         <Modal obj={null} tShirt={{
                             id: tShirtsData.tshirts[i].tshirtId,
                             price: tShirtsData.tshirts[i].price,
@@ -48,7 +55,7 @@ export const Tshirts = (data) => {
             </div>
 
             <div className="wrapper-buttons">
-                <ModalPostRequest showTShirtPostRequest={true}/>
+                <ModalPostRequest showTShirtPostRequestForm={true} showGamesPostRequestForm={false}/>
                 <button
                     onClick={() => navigate("/games")}
 

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import {useEffect, useState} from "react";
 import {TShirtPostRequest} from "../tshirt/TShirtPostRequest";
+import {GamesPostRequest} from "../games/GamesPostRequest";
 
 const ModalBackground = styled.div`
 position: fixed;
@@ -25,7 +26,7 @@ justify-content: space-between;
 `;
 
 
-function ModalPostRequest(showTShirtPostRequest) {
+function ModalPostRequest(productPostRequest, showTShirtPostRequestForm, showGamesPostRequestForm) {
     const [shouldShow, setShouldShow] = useState(false);
 
     return (
@@ -40,7 +41,9 @@ function ModalPostRequest(showTShirtPostRequest) {
                 <ModalBackground>
                     <ModalBody onClick={(e) => e.stopPropagation()}>
 
-                        {showTShirtPostRequest.showTShirtPostRequest === true ?  <TShirtPostRequest/> : <p>none</p>}
+                        {productPostRequest.showTShirtPostRequestForm === true ? <TShirtPostRequest/> : ""}
+
+                        {productPostRequest.showGamesPostRequestForm === true ? <GamesPostRequest/> : ""}
 
                         <div>
                             <button className="close-modal-btn"
